@@ -1,0 +1,54 @@
+<?php echo $this->render('header.html'); ?>
+<?php
+    $user = UserService::instance()->byId($uid);
+    if ($user === null) {
+        Base::instance()->error(404);
+        exit;
+    }
+?>
+<div class="container mt-4">
+    <form action="<?php echo $PATH ?>" method="post" class="">
+        <input type="hidden" name="csrf" value="<?php echo $CSRF; ?>" />
+        <div class="messages error"><?php
+            foreach($ERRORS as $error) {
+            echo '<span class="message">' . urldecode($error) . '</span>';
+            }
+            ?></div>
+        <div class="messages success"><?php
+            if (isset($SUCCESS)) {
+                echo '<span class="message">' . urldecode($SUCCESS) . '</span>';
+            }
+            ?></div>
+        <fieldset disabled>
+            <div class="form-group">
+                <h3>Username</h3>
+                <input type="text" id="disabledTextInput" class="form-control" value="<?php echo $user['username']; ?>">
+            </div>
+        </fieldset>
+        <?php if ($me === true && !SessionService::instance()->isImpersonation()) { ?>
+        <div class="form-group">
+            <h3>Rights</h3>
+            <ul>
+                <?php foreach(UserService::instance()->getRights($user['id']) as $right) { ?>
+                <li><?php echo UserService::instance()->rightName($right['right']); ?></li>
+                <?php } ?>
+            </ul>
+        </div>
+        <div class="form-group">
+            <h3>Change Password</h3>
+            <div class="input-group">
+                <label for="inputOld" class="sr-only">Username</label>
+                <input type="password" id="inputOld" name="old" class="form-control" placeholder="Current password" required autofocus />
+            </div>
+            <div class="input-group stacked">
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input type="password" id="inputPassword" name="new" class="form-control" placeholder="Password" required />
+                <label for="inputConfirm" class="sr-only">Repeat password</label>
+                <input type="password" id="inputConfirm" name="confirm" class="form-control" placeholder="Repeat password" required />
+            </div>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block mt-4" type="submit">Change Password</button>
+        <?php } ?>
+    </form>
+</div>
+<?php echo $this->render('footer.html'); ?>

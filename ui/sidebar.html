@@ -1,0 +1,28 @@
+<nav class="navbar navbar-light bg-light p-0 col-12 d-lg-none">
+    <ul class="navbar-nav flex-row">
+        <?php foreach(RouteService::instance()->getRoutes() as $route) { ?>
+        <li class="px-2">
+            <a class="nav-link<?php echo RouteService::instance()->isActive($route) ? ' active' : ''; ?>" href="<?php echo $route->getUrl(); ?>">
+                <i class="fa fa-<?php echo $route->getIcon(); ?>"></i>
+                <?php echo $route->getText(); ?>
+            </a>
+        </li>
+        <?php } ?>
+    </ul>
+</nav>
+</div>
+<div class="row flex-grow">
+<nav class="col-2 d-none d-lg-block bg-light sidebar">
+    <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+            <?php foreach(RouteService::instance()->getRoutes() as $route) { ?>
+            <li class="nav-item">
+                <a class="nav-link<?php echo RouteService::instance()->isActive($route) ? ' active' : ''; ?>" href="<?php echo $route->getUrl(); ?>">
+                    <i class="fa fa-<?php echo $route->getIcon(); ?>"></i>
+                    <?php echo $route->getText(); ?>
+                </a>
+            </li>
+            <?php } ?>
+        </ul>
+    </div>
+</nav>

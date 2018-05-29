@@ -1,0 +1,18 @@
+<?php echo $this->render('header.html'); ?>
+<div class="articles">
+<?php
+    $articles = ArticleService::instance()->getLatestArticles($PARAMS['count']);
+    if (count($articles) === 0) {
+    ?>
+    <h4>No articles available.</h4>
+<?php } else { ?>
+    <h3>Latest <?php if (count($articles) === 1) { ?>article<?php } else { echo count($articles); ?> articles<?php } ?>:</h3>
+    <?php foreach($articles as $article) { ?>
+    <div class="article">
+        <h3><a href="/article/<?php echo $article->id(); ?>"><?php echo $article->title(); ?></a></h3>
+        <p><?php echo $article->content(); ?></p>
+    </div>
+    <?php } ?>
+<?php } ?>
+</div>
+<?php echo $this->render('footer.html'); ?>

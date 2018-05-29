@@ -1,0 +1,20 @@
+<?php echo $this->render('header.html'); ?>
+<div class="challenges">
+<?php
+    if (ChallengeService::instance()->countSolvedBy() === 0) {
+    ?>
+    <h4>No challenges solved so far...</h4>
+<?php } else { ?>
+    <h3>Challenges</h3>
+    <?php
+    foreach(ChallengeService::instance()->getChallenges() as $challenge) {
+        if (ChallengeService::instance()->hasSolved($challenge['id'])) {
+    ?>
+    <div class="challenge">
+        <h3><a href="/challenges/<?php echo $challenge['id']; ?>"><?php echo ChallengeService::instance()->challengeName($challenge['id']) ?></a></h3>
+    </div>
+        <?php } ?>
+    <?php } ?>
+<?php } ?>
+</div>
+<?php echo $this->render('footer.html'); ?>

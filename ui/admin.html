@@ -1,0 +1,24 @@
+<?php echo $this->render('header.html'); ?>
+<div class="container-fluid flex-grow d-flex flex-column">
+    <div class="row">
+        <?php echo $this->render('sidebar.html'); ?>
+
+        <main role="main" class="col-12 col-lg-10 ml-md-auto pt-3 flex-grow d-flex flex-column">
+            <div class="messages error"><?php
+		        if (Base::instance()->ERRORS !== null) {
+                    foreach(Base::instance()->ERRORS as $error) {
+            ?><div class="message"><?php echo $error; ?></div><?php }
+                } ?></div>
+
+            <?php echo $this->render('toolbar.html'); ?>
+
+            <?php
+                if ($template !== null) {
+                    echo $this->render($template);
+                }
+            ?>
+    
+        </main>
+    </div>
+</div>
+<?php echo $this->render('footer.html'); ?>

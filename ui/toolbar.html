@@ -1,0 +1,21 @@
+<?php if (ToolbarService::instance()->isVisible()) { ?>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2"><?php echo ToolbarService::instance()->getTitle(); ?></h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+            <?php foreach(ToolbarService::instance()->getButtons() as $button) { ?>
+            <a
+                    href="<?php echo $button->getUrl(); ?>"
+                    onclick="<?php echo $button->getOnClick(); ?>"
+                    class="btn btn-sm <?php echo $button->getClassString(); ?>"
+            >
+                <?php if ($button->getIcon() !== null) { ?>
+                <i class="fa fa-<?php echo $button->getIcon(); ?>"></i>
+                <?php } ?>
+                <?php echo $button->getText(); ?>
+            </a>
+            <?php } ?>
+        </div>
+    </div>
+</div>
+<?php } ?>

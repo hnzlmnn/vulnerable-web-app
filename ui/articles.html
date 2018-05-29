@@ -1,0 +1,44 @@
+<table class="table table-responsive table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Title</th>
+        <th scope="col" class="w-100">Extract</th>
+        <th scope="col">Author</th>
+        <th scope="col">Published</th>
+        <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach(ArticleService::instance()->getArticles($page) as $article) { ?>
+    <tr>
+        <th scope="row" class="align-middle">
+            <a href="/article/<?php echo $article->id(); ?>"><?php echo $article->title(); ?></a>
+        </th>
+        <td class="align-middle"><?php echo $article->extract(); ?></td>
+        <td class="align-middle">
+            <a href="/user/<?php echo $article->author(); ?>"><?php echo $article->authorName(); ?></a>
+        </td>
+        <td class="align-middle"><?php echo $article->published(); ?></td>
+        <td class="text-right align-middle">
+            <div class="btn-group">
+                <a class="btn btn-primary" href="/admin/articles/edit/<?php echo $article->id(); ?>" title="Edit"><i class="fa fa-pencil"></i></a>
+                <a class="btn btn-danger" href="/admin/articles/delete/<?php echo $article->id(); ?>" title="Delete"><i class="fa fa-trash"></i></a>
+            </div>
+        </td>
+    </tr>
+    <?php } ?>
+    </tbody>
+</table>
+<div class="">
+    <ul class="pagination flex-row justify-content-end">
+        <li class="page-item<?php if ($page < 1) { echo ' disabled'; } ?>">
+            <a class="page-link" href="?page=<?php echo $page - 1; ?>"><i class="fa fa-chevron-left"></i></a>
+        </li>
+        <?php for ($i = 0; $i < max(1, $pages); $i++) { ?>
+        <li class="page-item<?php if ($page === $i) { echo ' active'; } ?>"><a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i + 1; ?></a></li>
+        <?php } ?>
+        <li class="page-item<?php if ($page >= $pages - 1) { echo ' disabled'; } ?>">
+            <a class="page-link" href="?page=<?php echo $page + 1; ?>"><i class="fa fa-chevron-right"></i></a>
+        </li>
+    </ul>
+</div>

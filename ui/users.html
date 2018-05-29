@@ -1,0 +1,49 @@
+<table class="table table-responsive table-hover">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col" class="w-100">Username</th>
+        <th scope="col">Rights</th>
+        <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach(UserService::instance()->getUsers($page) as $user) { ?>
+    <tr>
+        <th scope="row" class="align-middle"><?php echo $user['id']; ?></th>
+        <td class="align-middle">
+            <a href="/user/<?php echo $user['id']; ?>"><?php echo $user['username']; ?></a>
+        </td>
+        <td class="align-middle">
+            <?php
+                $rights = array();
+                foreach(UserService::instance()->getRights($user['id']) as $right) {
+                    $rights[] = UserService::instance()->rightName($right['right']);
+                }
+                echo implode(', ', $rights);
+            ?>
+        </td>
+        <td class="text-right align-middle">
+            <div class="btn-group">
+                <a class="btn btn-success<?php if ($user['id'] == SessionService::instance()->uid(false)) { echo ' disabled'; } ?>" href="/admin/users/impersonate/<?php echo $user['id']; ?>" title="Impersonate"><i class="fa fa-ticket"></i></a>
+                <a class="btn btn-primary" href="/admin/users/edit/<?php echo $user['id']; ?>" title="Edit"><i class="fa fa-pencil"></i></a>
+                <a class="btn btn-danger" href="/admin/users/delete/<?php echo $user['id']; ?>" title="Delete"><i class="fa fa-user-times"></i></a>
+            </div>
+        </td>
+    </tr>
+    <?php } ?>
+    </tbody>
+</table>
+<div class="">
+    <ul class="pagination flex-row justify-content-end">
+        <li class="page-item<?php if ($page < 1) { echo ' disabled'; } ?>">
+            <a class="page-link" href="?page=<?php echo $page - 1; ?>"><i class="fa fa-chevron-left"></i></a>
+        </li>
+        <?php for ($i = 0; $i < max(1, $pages); $i++) { ?>
+        <li class="page-item<?php if ($page === $i) { echo ' active'; } ?>"><a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i + 1; ?></a></li>
+        <?php } ?>
+        <li class="page-item<?php if ($page >= $pages - 1) { echo ' disabled'; } ?>">
+            <a class="page-link" href="?page=<?php echo $page + 1; ?>"><i class="fa fa-chevron-right"></i></a>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,283 @@
+@import 'variables'
+
+@import 'bootstrap/bootstrap'
+
+html
+  height: 100%
+
+html,
+body
+  min-height: 100%
+  min-width: 100%
+  width: 100%
+
+body
+  display: flex
+  flex-direction: column
+  &.login
+    display: -ms-flexbox
+    display: -webkit-box
+    display: flex
+    -ms-flex-align: center
+    -ms-flex-pack: center
+    -webkit-box-align: center
+    align-items: center
+    -webkit-box-pack: center
+    justify-content: center
+    padding-top: 40px
+    padding-bottom: 40px
+    background-color: #f5f5f5
+
+.link-unstyled
+  &,
+  &:visited,
+  &:hover,
+  &:active,
+  &:focus,
+  &:active:hover
+    font-style: inherit
+    color: inherit
+    background-color: transparent
+    font-size: inherit
+    text-decoration: none
+    font-variant: inherit
+    font-weight: inherit
+    line-height: inherit
+    font-family: inherit
+    border-radius: inherit
+    border: inherit
+    outline: inherit
+    box-shadow: inherit
+    padding: inherit
+    vertical-align: inherit
+
+.table
+  th
+    border-top: none
+
+.flex-grow
+  flex-grow: 1
+
+.resize-none
+  resize: none
+
+.form-signin
+  width: 100%
+  max-width: 330px
+  padding: 15px
+  margin: 0 auto
+  .checkbox
+    font-weight: 400
+    margin-top: 6px
+
+  .form-control
+    position: relative
+    box-sizing: border-box
+    height: auto
+    padding: 10px
+    font-size: 16px
+    &:focus
+      z-index: 2
+
+  input
+    &[type="text"]
+      margin-bottom: 10px
+
+    &[type="password"]
+
+.messages
+  width: 100%
+  margin-bottom: 10px
+  &:empty
+    margin-bottom: 0
+  &.error
+    .message
+      background-color: #dc3545
+      border: 1px solid rgb(206, 212, 218)
+      color: #fff
+  &.success
+    .message
+      background-color: #28a745
+      border: 1px solid rgb(206, 212, 218)
+      color: #fff
+  .message
+    display: block
+    background-color: #343a40
+    border: 1px solid rgb(206, 212, 218)
+    color: #fff
+    border-radius: 4px
+    padding: 8px 20px
+    width: 100%
+    border-radius: 0
+    &:first-of-type
+      border-top-left-radius: 4px
+      border-top-right-radius: 4px
+    &:last-of-type
+      border-bottom-left-radius: 4px
+      border-bottom-right-radius: 4px
+
+
+.input-group
+  margin: 10px 0
+  &.stacked
+    *
+      display: block
+      width: 100%
+      margin-bottom: 0
+      margin-top: 0
+      border-radius: 0
+      &:first-of-type
+        border-top-left-radius: 4px
+        border-top-right-radius: 4px
+      &:last-of-type
+        border-bottom-left-radius: 4px
+        border-bottom-right-radius: 4px
+
+/*
+ * Sidebar
+ */
+
+.sidebar
+  position: fixed
+  top: 0
+  bottom: 0
+  left: 0
+  z-index: 100
+  // Behind the navbar
+  padding: 0
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1)
+
+.sidebar, .navbar
+  &, .navbar-nav
+    .nav-link
+      font-weight: 500
+      color: #333
+      .fa
+        margin-right: 4px
+        color: #999
+
+      &.active
+        color: #007bff
+
+      &:hover .feather,
+      &.active .feather
+        color: inherit
+
+.sidebar-sticky
+  position: -webkit-sticky
+  position: sticky
+  top: 48px
+  // Height of navbar
+  height: calc(100vh - 48px)
+  padding-top: .5rem
+  overflow-x: hidden
+  overflow-y: auto
+  // Scrollable contents if viewport is shorter than content.
+
+.sidebar-heading
+  font-size: .75rem
+  text-transform: uppercase
+
+/*
+ * Navbar
+ */
+
+.navbar-brand
+  padding-top: .75rem
+  padding-bottom: .75rem
+  font-size: 1rem
+  background-color: rgba(0, 0, 0, .25)
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25)
+
+.navbar .form-control
+  padding: .75rem 1rem
+  border-width: 0
+  border-radius: 0
+
+.form-control-dark
+  color: #fff
+  background-color: rgba(255, 255, 255, .1)
+  border-color: rgba(255, 255, 255, .1)
+
+.form-control-dark:focus
+  border-color: transparent
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, .25)
+
+.nav-buttons
+  display: flex
+  flex-direction: row
+  a
+    padding: 0 4px !important
+    margin: 0 2px
+    font-size: 20px
+
+/*
+ * Utilities
+ */
+
+.border-top
+  border-top: 1px solid #e5e5e5
+
+.border-bottom
+  border-bottom: 1px solid #e5e5e5
+
+.search, .articles, .challenges
+  flex-grow: 1
+  width: 100%
+  max-width: 1300px
+  margin: 0 auto
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  padding: 2em 30px 0
+  h3, h4
+    width: 100%
+    text-align: left
+
+  h4
+    color: #535353
+
+  .result, .article, .challenge
+    margin-top: 1.5em
+    flex-grow: 1
+    text-align: left
+    width: 100%
+    h3
+      text-align: left
+      font-size: 140%
+    p
+      text-align: justify
+    .highlight
+      color: #FFC500
+      font-weight: bold
+
+  .comments
+    width: 100%
+    margin-bottom: 20px
+    text-align: left
+    .comment
+
+.taglist
+  code
+
+.table
+  tr, td
+    white-space: nowrap
+
+.comments
+  .comment
+    .author
+      font-size: 120%
+
+    .published
+      font-size: 80%
+      color: #9f9f9f
+      a, a:link
+        color: inherit
+
+    .content
+      display: block
+		
+	
+

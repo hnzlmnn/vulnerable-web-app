@@ -1,0 +1,4 @@
+@import "bootstrap/functions";
+@import "bootstrap/variables";
+
+$theme-colors: map_merge($colors, $theme-colors);

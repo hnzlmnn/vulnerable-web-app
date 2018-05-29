@@ -1,0 +1,24 @@
+<?php echo $this->render('header.html'); ?>
+<div class="challenges">
+<?php
+    $challenge = ChallengeService::instance()->getChallenge($PARAMS['id']);
+
+    if ($challenge === null) {
+        Base::instance()->error(404);
+        exit;
+    }
+    ?>
+    <?php
+        if (ChallengeService::instance()->hasSolved($challenge['id'])) {
+    ?>
+    <div class="challenge">
+        <h3><?php echo ChallengeService::instance()->challengeName($challenge['id']) ?></h3>
+        <h4>Already solved by: <?php echo ChallengeService::instance()->countSolved($challenge['id']); ?></h4>
+        <h4>Used payload:</h4>
+        <pre><?php echo ChallengeService::instance()->getPayload($challenge['id']); ?></pre>
+    </div>
+    <?php } else { ?>
+        You did not solve this challenge!
+    <?php } ?>
+</div>
+<?php echo $this->render('footer.html'); ?>

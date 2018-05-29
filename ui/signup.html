@@ -1,0 +1,25 @@
+<?php echo $this->render('head.html'); ?>
+<body class="login">
+    <form action="<?php echo $PATH ?>" method="post" class="form-signin">
+        <input type="hidden" name="csrf" value="<?php echo $CSRF; ?>" />
+        <input type="hidden" name="redirect" value="<?php echo $REQUEST['redirect']; ?>" />
+        <img class="mb-4" src="ui/img/logo.png" alt="" width="72" height="72" />
+        <h1 class="h3 mb-3 font-weight-normal">Signup</h1>
+        <div class="messages error"><?php
+            foreach($ERRORS as $error) {
+                echo '<span class="message">' . urldecode($error) . '</span>';
+            }
+            ?></div>
+        <label for="inputUsername" class="sr-only">Username</label>
+        <input type="text" id="inputUsername" name="username" class="form-control" placeholder="Username" required autofocus value="<?php echo $POST['username']; ?>" />
+        <div class="input-group stacked">
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required />
+            <label for="inputRepeat" class="sr-only">Repeat password</label>
+            <input type="password" id="inputRepeat" name="repeat" class="form-control" placeholder="Repeat password" required />
+        </div>
+        <button class="btn btn-lg btn-primary btn-block mt-4" type="submit">Sign in</button>
+        <div class="mt-3">Already got an account? Login <a href="/admin/login/?redirect=<?php echo $REQUEST['redirect']; ?>">here</a></div>
+        <p class="mt-4 mb-3 text-muted">&copy; 2018</p>
+    </form>
+<?php echo $this->render('foot.html'); ?>

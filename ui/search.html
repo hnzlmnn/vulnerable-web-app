@@ -1,0 +1,20 @@
+<?php echo $this->render('header.html'); ?>
+<div class="search">
+<?php
+    $articles = ArticleService::instance()->search($POST['search']);
+    if ($articles === null) {
+?>
+    <h4>Start searching by typing something in the search bar above...</h4>
+<?php } elseif (count($articles) === 0) { ?>
+    <h3>No results found for "<?php echo $POST['search']; ?>".</h3>
+<?php } else { ?>
+    <h3>Search results for "<?php echo $POST['search']; ?>":</h3>
+    <?php foreach($articles as $article) { ?>
+        <div class="result">
+            <h3><a href="/article/<?php echo $article->id(); ?>"><?php echo $article->markTitle($POST['search']); ?></a></h3>
+            <p><?php echo $article->markContent($POST['search']); ?></p>
+        </div>
+    <?php } ?>
+<?php } ?>
+</div>
+<?php echo $this->render('footer.html'); ?>

@@ -1,0 +1,55 @@
+<?php echo $this->render('header.html'); ?>
+<div class="articles">
+<?php
+    $article = ArticleService::instance()->getArticle($PARAMS['id']);
+    if ($article === null || $article->token()) {
+        Base::instance()->error(404);
+        exit;
+    }
+?>
+    <div class="article">
+        <h3><?php echo $article->markTitle($POST['search']); ?></h3>
+        <p><?php echo $this->raw($article->markContent($POST['search'])); ?></p>
+    </div>
+    <div class="d-flex flex-column mb-3 w-100">
+        <?php if (UserService::instance()->authenticated()) { ?>
+        <h4>Add a comment</h4>
+        <form action="/article/<?php echo $PARAMS['id']; ?>" method="post" class="d-flex flex-row flex-grow">
+            <input type="hidden" name="csrf" value="<?php echo $CSRF ?>">
+            <div class="form-group w-100">
+                <div class="input-group">
+                    <input id="comment" type="text" name="content" placeholder="Your message" required class="form-control flex-grow" />
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Comment</button>
+                    </div>
+                </div>
+                <small class="form-text text-muted taglist">
+                    Allowed HTML-tags:
+                    <?php echo implode(', ', array_map(function ($allowed) { return '<code>' . $allowed . '</code>'; }, SanitizerService::instance()->getAllowed())); ?>
+                </small>
+            </div>
+        </form>
+        <?php } else { ?>
+        <div class="text-center"><a href="/admin/login?redirect=/article/<?php echo $PARAMS['id']; ?>">Login</a> to write comments</div>
+        <?php } ?>
+    </div>
+	<div class="comments">
+        <h4>Comments</h4>
+		<?php
+			$comments = ArticleService::instance()->getComments($PARAMS['id']);
+			if (count($comments) > 0) {
+        ?>
+            <?php foreach($comments as $comment) { ?>
+		<div class="comment">
+			<span class="author"><?php echo UserService::instance()->getName($comment->author()); ?></span>
+			<span class="published"><?php echo $comment->published(); ?></span>
+			<span class="content"><?php echo $comment->content(); ?></span>
+		</div>
+			<?php } ?>
+        <?php } else { ?>
+            <span class="text-muted">There are no comments for this article, but you can leave one above.</span>
+        <?php } ?>
+	</div>
+	<div class="grow"></div>
+</div>
+<?php echo $this->render('footer.html'); ?>

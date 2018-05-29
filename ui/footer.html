@@ -1,0 +1,17 @@
+<?php // VULN: reflected xss ?>
+<img src="/track?url=<?php echo str_replace(
+	array(
+		'<',
+		'>',
+		'\'',
+		'?',
+		'&',
+	), array(
+		'&lt;',
+		'&gt;',
+		'%27',
+		'%3F',
+		'%26'
+	), $this->raw(urldecode($PATH . '?' . $QUERY))
+); ?>" style="display:none;" />
+<?php echo $this->render('foot.html'); ?>
